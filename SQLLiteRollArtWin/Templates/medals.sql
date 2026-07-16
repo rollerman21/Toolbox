@@ -208,11 +208,11 @@ IIF( total >= 6 , 'Médaille Platine','------'))))))) as médaille from ext Orde
 --order by médaille;
 
 
-select distinct 'free' typeMédaille, num_licence_athlete "Numéro de licence", (select substr(max(DateEnd), 1, 10) from GaraParams) "date d'obtention", '' "date de fin", '' "numero_diplome",(
-    select DISTINCT Place from GaraParams) "lieu d'obtention", 'FFRS' "code structure" , num_licence "numéro de licence du formateur / examinateur ", médaille commentaires
+select distinct 'free' typeMédaille, printf('%06d',num_licence_athlete) "Numéro de licence", (select substr(max(DateEnd), 1, 10) from GaraParams) "date d'obtention", '' "date de fin", '' "numero_diplome",(
+    select DISTINCT Place from GaraParams) "lieu d'obtention", 'FFRS' "code structure" , printf('%06d',num_licence) "numéro de licence du formateur / examinateur ", médaille commentaires
 from Base_medaille_free, GaraParams where médaille <> '------'
 UNION
-select distinct 'danse' typeMédaille, a.num_licence "Numéro de licence",  (select  substr(max(DateEnd), 1, 10) from GaraParams) "date d'obtention", '' "date de fin",  '' "numero_diplome",(
-    select DISTINCT Place from GaraParams) "lieu d'obtention",  'FFRS' "code structure", d.num_licence "numéro de licence du formateur / examinateur ", médaille commentaires from
+select distinct 'danse' typeMédaille, printf('%06d',a.num_licence) "Numéro de licence",  (select  substr(max(DateEnd), 1, 10) from GaraParams) "date d'obtention", '' "date de fin",  '' "numero_diplome",(
+    select DISTINCT Place from GaraParams) "lieu d'obtention",  'FFRS' "code structure", printf('%06d',d.num_licence) "numéro de licence du formateur / examinateur ", médaille commentaires from
                                                                                                                                                                                   medailles_danse a, GaraParams b, PanelJudge c, Judges d where médaille <> '------' and b.ID_GaraParams = c.ID_GaraParams and c.ID_Judge = d.ID_Judge and Role = 'Referee'
 order by médaille;
