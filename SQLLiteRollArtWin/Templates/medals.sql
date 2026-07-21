@@ -215,4 +215,5 @@ UNION
 select distinct 'danse' typeMédaille, a.num_licence "Numéro de licence",  (select  substr(max(DateEnd), 1, 10) from GaraParams) "date d'obtention", '' "date de fin",  '' "numero_diplome",(
     select DISTINCT Place from GaraParams) "lieu d'obtention",  'FFRS' "code structure", d.num_licence "numéro de licence du formateur / examinateur ", médaille commentaires from
                                                                                                                                                                                   medailles_danse a, GaraParams b, PanelJudge c, Judges d where médaille <> '------' and b.ID_GaraParams = c.ID_GaraParams and c.ID_Judge = d.ID_Judge and Role = 'Referee'
+group by a.num_licence
 order by médaille;
